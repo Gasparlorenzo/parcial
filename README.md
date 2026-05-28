@@ -1,12 +1,11 @@
-# Parcial Aprendizaje2026
+Parcial Aprendizaje2026
 
-<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
-    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
-</a>
+##Predicción de la Demanda Turística en Tierra del Fuego Mediante Aprendizaje Automático##
 
-preparacion del parcial para Aprendizaje Automatico 2026
+Este estudio presenta un modelo de aprendizaje automático para predecir la demanda turística en Tierra del Fuego, Argentina. El objetivo del proyecto es analizar datos históricos de turismo e identificar patrones relacionados con la actividad turística estacional y el comportamiento de los visitantes. La demanda turística en la región está fuertemente influenciada por las condiciones climáticas, la conectividad aeroportuaria, el turismo de cruceros y las variaciones estacionales, las cuales generan incertidumbre operativa tanto en el sector público como en el privado. Los datos fueron recolectados de fuentes estadísticas oficiales, incluyendo registros de ocupación hotelera, indicadores turísticos, actividad aeroportuaria, arribos de cruceros y variables climáticas. Se evaluaron varios modelos de aprendizaje automático, como Regresión Lineal, Árboles de Decisión y Regresión por Vectores de Soporte, para predecir la demanda turística mensual y analizar relaciones complejas entre variables. Los resultados mostraron que los patrones históricos de turismo, las condiciones climáticas y los indicadores de transporte pueden mejorar la precisión de las predicciones y apoyar procesos de toma de decisiones basados en datos. Además, el modelo propuesto puede ayudar a las organizaciones turísticas a optimizar estrategias de planificación, gestión de recursos y organización de infraestructura en entornos altamente estacionales. Asimismo, este proyecto demuestra cómo la Inteligencia Artificial puede aplicarse para resolver problemas económicos y operativos reales mediante análisis predictivo y análisis de datos históricos.
 
-## Project Organization
+
+## Organización del Proyecto
 
 ```
 ├── LICENSE            <- Open-source license if one is chosen
