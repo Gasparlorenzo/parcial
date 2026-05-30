@@ -1,38 +1,246 @@
-# Parcial ML2026
-
-## Predicción de la Demanda Turística en Tierra del Fuego Mediante Aprendizaje Automático
-
-Este estudio presenta un modelo de aprendizaje automático para predecir la demanda turística en Tierra del Fuego, Argentina. El objetivo del proyecto es analizar datos históricos de turismo e identificar patrones relacionados con la actividad turística estacional y el comportamiento de los visitantes. La demanda turística en la región está fuertemente influenciada por las condiciones climáticas, la conectividad aeroportuaria, el turismo de cruceros y las variaciones estacionales, las cuales generan incertidumbre operativa tanto en el sector público como en el privado. Los datos fueron recolectados de fuentes estadísticas oficiales, incluyendo registros de ocupación hotelera, indicadores turísticos, actividad aeroportuaria, arribos de cruceros y variables climáticas. Se evaluaron varios modelos de aprendizaje automático, como Regresión Lineal, Árboles de Decisión y Regresión por Vectores de Soporte, para predecir la demanda turística mensual y analizar relaciones complejas entre variables. Los resultados mostraron que los patrones históricos de turismo, las condiciones climáticas y los indicadores de transporte pueden mejorar la precisión de las predicciones y apoyar procesos de toma de decisiones basados en datos. Además, el modelo propuesto puede ayudar a las organizaciones turísticas a optimizar estrategias de planificación, gestión de recursos y organización de infraestructura en entornos altamente estacionales. Asimismo, este proyecto demuestra cómo la Inteligencia Artificial puede aplicarse para resolver problemas económicos y operativos reales mediante análisis predictivo y análisis de datos históricos.
+\#  Predicción de Demanda Turística — Tierra del Fuego
 
 
-## Organización del Proyecto
+
+> Modelo de aprendizaje automático para predecir el total mensual de viajeros que arriban a Ushuaia, Tierra del Fuego (Argentina), utilizando series temporales históricas enriquecidas con variables climáticas y de oferta hotelera.
+
+
+
+\---
+
+
+
+\##  Descripción del proyecto
+
+
+
+El turismo es uno de los principales motores económicos de Ushuaia y la provincia de Tierra del Fuego. La marcada estacionalidad de la región —con picos en el verano austral (enero–febrero) y valles profundos en invierno (mayo–junio)— genera incertidumbre operativa tanto para el sector público como el privado.
+
+
+
+Este proyecto construye un modelo predictivo capaz de anticipar la demanda turística mensual con un horizonte de 3 a 6 meses, apoyando decisiones en hotelería, transporte, gastronomía e infraestructura.
+
+
+
+\---
+
+
+
+\## 📂 Estructura del repositorio
+
+
 
 ```
-├── LICENSE            <- Licencia del proyecto.
-├── Makefile           <- Archivo de automatización de comandos.
-├── README.md          <- Documento principal del proyecto para desarrolladores que utilizan este proyecto.
-├── data
-│   ├── interim        <- Datos intermedios que fueron transformados.
-│   ├── processed      <- Conjuntos de datos finales listos para el modelado.
-│   └── raw            <- Datos originales sin modificar.
-├── docs               <- Proyecto predeterminado de MkDocs; ver www.mkdocs.org para más detalles.
-│
-├── models             <- Modelos entrenados y serializados, predicciones del modelo o resúmenes del modelo.
-│
-├── notebooks          <- Jupyter notebooks. La convención de nombres usa un número (para ordenarlos),
-│			 				las iniciales del creador y una breve descripción separada por guiones.
-│                         
-│
-├── pyproject.toml     <- Archivo de configuración del proyecto con metadatos del paquete y 
-│							configuración para herramientas como Black.
-│
-├── references         <- references → Diccionarios de datos, manuales y otros materiales explicativos.
-│
-├── reports            <- Análisis generados en formato HTML, PDF, LaTeX, etc.
-│   └── figures        <- Gráficos e imágenes generadas para ser utilizadas en informes.
-│
-├── requirements.txt   <- Archivo de requisitos para reproducir el entorno de análisis, 
-│							por ejemplo generado con: pip freeze > requirements.txt
-│
-├── setup.cfg          <- Archivo de configuración para herramientas como flake8
+
+.
+
+├── data/
+
+│   ├── raw/                # Datos originales sin modificar
+
+│   ├── interim/            # Datos intermedios en procesamiento
+
+│   └── processed/          # Datos limpios y preprocesados
+
+├── models/                 # Modelos entrenados (.pkl, .h5, .joblib)
+
+├── notebooks/              # Jupyter Notebooks de exploración y análisis (EDA)
+
+├── src/                    # Código fuente (entrenamiento y predicción)
+
+├── requirements.txt        # Dependencias del proyecto
+
+└── README.md
+
+```
+
+
+
+\---
+
+
+
+\##  Dataset
+
+
+
+| Característica | Detalle |
+
+|---|---|
+
+| \*\*Período cubierto\*\* | Enero 2004 – Noviembre 2025 |
+
+| \*\*Instancias\*\* | 263 registros mensuales |
+
+| \*\*Variables\*\* | 83 columnas (7 grupos temáticos) |
+
+| \*\*Variable objetivo\*\* | `ush\_viaj\_total` (viajeros totales mensuales) |
+
+| \*\*Fuente principal\*\* | \[IPIEC – Instituto Provincial de Estadística y Censos, TDF](https://ipiec.tierradelfuego.gob.ar/) |
+
+| \*\*Fuente climática\*\* | \[Open-Meteo API (ERA5 reanalysis)](https://open-meteo.com/en/docs/historical-weather-api) |
+
+
+
+\### Grupos de variables
+
+
+
+| Grupo | Variables | Cobertura |
+
+|-------|-----------|-----------|
+
+| Temporales | fecha, año, mes | 100% |
+
+| Viajeros y pernoctaciones | totales, residentes, no residentes | 100% |
+
+| Estadía promedio | noches promedio por viajero | 100% |
+
+| Hotelería y alojamiento | establecimientos, plazas, tasas de ocupación | 79% |
+
+| Parque Nacional TDF | visitas totales y por origen | 50% |
+
+| Cruceros | recaladas, cruceristas por tipo | 9% |
+
+| Clima | temperatura, precipitación, viento | 100% |
+
+
+
+\### Features seleccionadas para el modelo
+
+
+
+```
+
+mes\_num, anio, temperature\_2m\_mean, precipitation\_sum,
+
+wind\_speed\_10m\_max, ush\_toh\_pct, ush\_top\_pct, ush\_plazas\_disponibles
+
+```
+
+
+
+\---
+
+
+
+\##  Requisitos
+
+
+
+```
+
+Python >= 3.9
+
+pandas
+
+numpy
+
+scikit-learn
+
+matplotlib
+
+seaborn
+
+openpyxl
+
+```
+
+
+
+\### Instalación
+
+
+
+```bash
+
+git clone https://github.com/tuusuario/turismo-tdf-ml
+
+cd turismo-tdf-ml
+
+pip install -r requirements.txt
+
+```
+
+
+
+\---
+
+
+
+\##  Uso
+
+
+
+```bash
+
+\# Análisis exploratorio
+
+jupyter notebook notebooks/exploracion.ipynb
+
+
+
+\# Entrenamiento del modelo
+
+python src/modelo.py
+
+```
+
+
+
+\---
+
+
+
+\##  Resultados preliminares
+
+
+
+\*(Se actualizará con métricas finales: RMSE, MAE, R²)\*
+
+
+
+\---
+
+
+
+\##  Notas metodológicas
+
+
+
+\- El período \*\*2020–2021\*\* presenta valores atípicos extremos por COVID-19. Se evalúa el uso de una variable dummy o exclusión del período para el entrenamiento.
+
+\- Se utilizan únicamente variables con \*\*≥ 79% de cobertura\*\* para el modelo principal. Las variables con alta ausencia (cruceros, desagregado por origen) quedan reservadas para análisis exploratorio.
+
+\- No se realizaron imputaciones sobre las variables originales del IPIEC para preservar la integridad de los datos.
+
+
+
+\---
+
+
+
+\##  Referencias
+
+
+
+\- \[IPIEC – Tierra del Fuego](https://ipiec.tierradelfuego.gob.ar/)
+
+\- \[Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api)
+
+\- \[ERA5 Reanalysis – ECMWF / Copernicus](https://cds.climate.copernicus.eu/)
+
+\- \[datos.gob.ar – Portal Nacional de Datos Abiertos](https://datos.gob.ar/)
+
+
+
+\---
+
+
+
+\##  Autoría
+
+
+
+Proyecto desarrollado para la materia \*\*Aprendizaje Automático\*\* — Universidad Nacional de Tierra del Fuego, 2026.
 
