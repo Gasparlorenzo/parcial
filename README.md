@@ -1,16 +1,16 @@
-\#  Predicción de Demanda Turística — Tierra del Fuego
+#  Predicción de Demanda Turística — Tierra del Fuego
 
 
 
-> Modelo de aprendizaje automático para predecir el total mensual de viajeros que arriban a Ushuaia, Tierra del Fuego (Argentina), utilizando series temporales históricas enriquecidas con variables climáticas y de oferta hotelera.
+Modelo de aprendizaje automático para predecir el total mensual de viajeros que arriban a Ushuaia, Tierra del Fuego (Argentina), utilizando series temporales históricas enriquecidas con variables climáticas y de oferta hotelera.
 
 
 
-\---
+---
 
 
 
-\##  Descripción del proyecto
+##  Descripción del proyecto
 
 
 
@@ -22,11 +22,11 @@ Este proyecto construye un modelo predictivo capaz de anticipar la demanda turí
 
 
 
-\---
+---
 
 
 
-\## 📂 Estructura del repositorio
+## 📂 Estructura del repositorio
 
 
 
@@ -60,7 +60,7 @@ Este proyecto construye un modelo predictivo capaz de anticipar la demanda turí
 
 
 
-\##  Dataset
+##  Dataset
 
 
 
@@ -82,7 +82,7 @@ Este proyecto construye un modelo predictivo capaz de anticipar la demanda turí
 
 
 
-\### Grupos de variables
+### Grupos de variables
 
 
 
@@ -120,11 +120,11 @@ wind\_speed\_10m\_max, ush\_toh\_pct, ush\_top\_pct, ush\_plazas\_disponibles
 
 
 
-\---
+---
 
 
 
-\##  Requisitos
+##  Requisitos
 
 
 
@@ -148,7 +148,7 @@ openpyxl
 
 
 
-\### Instalación
+### Instalación
 
 
 
@@ -164,7 +164,7 @@ pip install -r requirements.txt
 
 
 
-\---
+---
 
 
 
@@ -174,13 +174,13 @@ pip install -r requirements.txt
 
 ```bash
 
-\# Análisis exploratorio
+# Análisis exploratorio
 
 jupyter notebook notebooks/exploracion.ipynb
 
 
 
-\# Entrenamiento del modelo
+# Entrenamiento del modelo
 
 python src/modelo.py
 
@@ -192,7 +192,7 @@ python src/modelo.py
 
 
 
-\##  Resultados preliminares
+##  Resultados preliminares
 
 
 
@@ -200,11 +200,11 @@ python src/modelo.py
 
 
 
-\---
+---
 
 
 
-\##  Notas metodológicas
+##  Notas metodológicas
 
 
 
@@ -216,11 +216,11 @@ python src/modelo.py
 
 
 
-\---
+---
 
 
 
-\##  Referencias
+##  Referencias
 
 
 
@@ -234,11 +234,11 @@ python src/modelo.py
 
 
 
-\---
+---
 
 
 
-\##  Autoría
+##  Autoría
 
 
 
