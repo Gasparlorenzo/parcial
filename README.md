@@ -186,7 +186,7 @@ La serie muestra una **fuerte estacionalidad anual**, con máximos en verano y m
 
 ## ✍️ Autoría
 
-Proyecto desarrollado para la materia **Aprendizaje Automático** — Universidad Nacional de Tierra del Fuego, 2026.
+Proyecto desarrollado para la materia **Aprendizaje Automático** — Politecnico Malvinas Argentinas, 2026.
 
 <div align="center">
 <br/>
