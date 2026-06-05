@@ -145,10 +145,9 @@ La serie muestra una **fuerte estacionalidad anual**, con máximos en verano y m
 <br/>
 
 <div align="center">
-<img src="docs/img/correlacion.png" alt="Matriz de correlación" width="70%"/>
-<br/><em>Figura 2 — Matriz de correlación entre features y la variable objetivo.</em>
+  <img src="docs/img/matriz_correlacion.png" alt="Matriz de correlación entre features y targets" width="75%"/>
+  <br/><em>Figura 2 — Matriz de correlación entre predictores y las tres variables objetivo.</em>
 </div>
-
 ### Desempeño del modelo
 
 | Modelo | R² (test) | RMSE | MAE |
@@ -159,8 +158,8 @@ La serie muestra una **fuerte estacionalidad anual**, con máximos en verano y m
 > ℹ️ *Completar con las métricas finales obtenidas sobre el conjunto de prueba (2023–2025).*
 
 <div align="center">
-<img src="docs/img/pred_vs_real.png" alt="Predicción vs valores reales" width="80%"/>
-<br/><em>Figura 3 — Predicción del modelo frente a los valores reales en el período de test.</em>
+  <img src="docs/img/real_vs_predicho.png" alt="Real vs predicho en el período de test" width="85%"/>
+  <br/><em>Figura 3 — Predicción del modelo frente a los valores reales en el test (2023–2025): viajeros (R² 0,80), pernoctaciones (R² 0,88) y Parque Nacional (R² 0,53).</em>
 </div>
 
 ---
