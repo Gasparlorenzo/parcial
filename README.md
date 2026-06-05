@@ -75,7 +75,7 @@ Este proyecto construye un **modelo predictivo** capaz de anticipar la demanda t
 | **Período cubierto** | Enero 2004 – Noviembre 2025 |
 | **Instancias** | 263 registros mensuales |
 | **Variables** | 83 columnas (7 grupos temáticos) |
-| **Variable objetivo** | `ush_viaj_total` (viajeros totales mensuales) |
+| **Variables objetivo (3)** | `ush_viaj_total` (viajeros) · `ush_pernoc_total` (pernoctaciones) · `parque_visitas_total` (visitas al Parque Nacional) |
 | **Fuente principal** | [IPIEC – Instituto Provincial de Estadística y Censos, TDF](https://ipiec.tierradelfuego.gob.ar/) |
 | **Fuente climática** | [Open-Meteo API (ERA5 reanalysis)](https://open-meteo.com/en/docs/historical-weather-api) |
 
@@ -137,8 +137,9 @@ python src/modelo.py
 La serie muestra una **fuerte estacionalidad anual**, con máximos en verano y mínimos en invierno.
 
 <div align="center">
-<img src="docs/img/serie_temporal.png" alt="Serie temporal de viajeros mensuales" width="80%"/>
-<br/><em>Figura 1 — Evolución mensual de viajeros (2004–2025).</em>
+  <img src="docs/img/evolucion_historica_demanda_2004_2025.png" alt="Evolución histórica de la demanda turística en Ushuaia, 2004-2025" width="90%"/>
+  <br/>
+  <em>Figura 1 — Evolución mensual de viajeros, pernoctaciones y visitas al Parque Nacional (2004–2025). El período COVID-19 (mar 2020 – jun 2021) se destaca en rojo.</em>
 </div>
 
 <br/>
@@ -153,9 +154,7 @@ La serie muestra una **fuerte estacionalidad anual**, con máximos en verano y m
 | Modelo | R² (test) | RMSE | MAE |
 |--------|:---------:|:----:|:---:|
 | Regresión Lineal | — | — | — |
-| Árbol de Decisión | — | — | — |
-| KNN | — | — | — |
-| SVM | — | — | — |
+
 
 > ℹ️ *Completar con las métricas finales obtenidas sobre el conjunto de prueba (2023–2025).*
 
