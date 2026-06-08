@@ -159,7 +159,7 @@ La serie muestra una **fuerte estacionalidad anual**, con máximos en verano y m
 
 <div align="center">
   <img src="docs/img/real_vs_predicho.png" alt="Real vs predicho en el período de test" width="85%"/>
-  <br/><em>Figura 3 — Predicción del modelo frente a los valores reales en el test (2023–2025): viajeros (R² 0,80), pernoctaciones (R² 0,88) y Parque Nacional (R² 0,53).</em>
+  <br/><em>Figura 3 — Predicción del modelo frente a los valores reales en el test (2023–2025): viajeros (R² 0,82), pernoctaciones (R² 0,81) y Parque Nacional (R² 0,45).</em>
 </div>
 
 ---
