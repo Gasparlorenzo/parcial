@@ -10,7 +10,7 @@
 
 El turismo representa uno de los motores económicos más importantes de Ushuaia y la provincia de Tierra del Fuego. La capacidad de anticipar el volumen de visitantes con meses de anticipación permite a los actores del sector —hotelería, transporte, gastronomía, agencias y organismos públicos— planificar su oferta y recursos de manera más eficiente.
 
-Este proyecto tiene como objetivo construir un modelo de aprendizaje automático que prediga el total mensual de viajeros que arriban a Ushuaia, utilizando series temporales históricas enriquecidas con variables climáticas y de oferta hotelera. El modelo deberá ser capaz de proyectar la demanda con un horizonte de al menos tres a seis meses.
+Este proyecto tiene como objetivo construir modelos de aprendizaje automático que predigan la demanda turística mensual de Ushuaia sobre **tres variables objetivo** —viajeros totales, pernoctaciones totales y visitas al Parque Nacional Tierra del Fuego—, utilizando series temporales históricas enriquecidas con variables climáticas y de oferta hotelera. Los modelos deberán ser capaces de proyectar la demanda con un horizonte de al menos tres a seis meses.
 
 ---
 
@@ -36,7 +36,7 @@ Ambas fuentes fueron combinadas sobre la clave temporal `fecha` (año-mes), gene
 
 - Unificación de formato de fechas al primer día de cada mes.
 - Joining de registros climáticos con registros de turismo por período.
-- Identificación de valores faltantes sin imputación aún (documentada en la Sección 4).
+- Identificación de valores faltantes (documentada en la Sección 4). En la etapa de modelado, los nulos de las variables hoteleras se imputan con la **mediana histórica del mismo mes**, preservando la estacionalidad.
 - No se realizaron transformaciones sobre las variables originales del IPIEC para preservar su integridad.
 
 ---
@@ -51,7 +51,7 @@ Ambas fuentes fueron combinadas sobre la clave temporal `fecha` (año-mes), gene
 | Total de instancias (filas) | 263 registros mensuales |
 | Total de características (columnas) | 83 variables |
 | Granularidad temporal | Mensual |
-| Variable objetivo (target) | `ush_viaj_total` (viajeros totales) |
+| Variables objetivo (3) | `ush_viaj_total` (viajeros) · `ush_pernoc_total` (pernoctaciones) · `parque_visitas_total` (Parque Nacional) |
 | Fuente principal | IPIEC – Instituto Provincial de Estadística y Censos, Tierra del Fuego |
 | Fuente climática | Open-Meteo API (ERA5 reanalysis) |
 
@@ -94,7 +94,7 @@ El dataset presenta una estructura de completitud heterogénea, que refleja la d
 - **Datos desagregados por origen** (residentes/no residentes por provincia y país): disponibles solo desde 2020, representando el 13% del período total (35 registros de 263).
 - **Datos de cruceros y temporada:** disponibles únicamente desde la temporada 2021/2022, con menos del 10% de completitud (24 registros).
 
-Para el modelo predictivo, se utilizarán exclusivamente las variables con cobertura del 79% o superior, evitando imputaciones sobre series con menos del 50% de datos. Las variables con alta ausencia se reservan para análisis exploratorios o modelos complementarios acotados al período con datos.
+Para los modelos predictivos, las **features** se restringen a variables con cobertura del 79% o superior (temporales, hoteleras y climáticas), imputando los nulos de las hoteleras por mediana mensual. Las visitas al Parque Nacional (50% de cobertura, desde 2015) se utilizan como **tercera variable objetivo**, no como feature; su menor cantidad de datos explica el desempeño más débil de ese modelo. Las variables con alta ausencia (cruceros, desagregado por origen) se reservan para análisis exploratorios.
 
 ---
 
@@ -104,16 +104,18 @@ A continuación se detalla el rol previsto para cada variable en el modelo de pr
 
 | Variable | Rol en modelo | Justificación |
 |---|---|---|
-| `ush_viaj_total` | Target | Variable a predecir: total de viajeros mensuales en Ushuaia |
+| `ush_viaj_total` | Target 1 | Total de viajeros mensuales en Ushuaia |
+| `ush_pernoc_total` | Target 2 | Pernoctaciones totales; indicador del impacto económico real |
+| `parque_visitas_total` | Target 3 | Visitas mensuales al Parque Nacional Tierra del Fuego |
 | `mes.1` (mes numérico) | Feature | Captura la estacionalidad, el predictor más importante dada la marcada variación mensual |
 | `anio` | Feature | Captura la tendencia histórica de crecimiento del turismo |
 | `temperature_2m_mean` | Feature | Temperatura media mensual; el clima de Ushuaia es factor clave para ciertos segmentos turísticos |
 | `precipitation_sum` | Feature | Precipitación mensual acumulada como proxy de condiciones climáticas adversas |
 | `wind_speed_10m_max` | Feature | Velocidad máxima del viento; relevante para actividades al aire libre y navegación |
 | `ush_toh %` / `ush_top %` | Feature | Tasas de ocupación hotelera y de plazas: proxy de oferta disponible y demanda previa |
-| `ush_plazas_disponibles` | Feature | Capacidad total de alojamiento: limita el máximo de turistas que puede recibir la ciudad |
+| `ush_plazas_disponibles` / `ush_hab_disponibles` | Feature | Capacidad de alojamiento: limita el máximo de turistas que puede recibir la ciudad |
 
-La variable `ush_viaj_total` presenta una marcada estacionalidad: los meses de enero, febrero y noviembre concentran los picos de demanda (temporada de verano austral y cruceros antárticos), mientras que los meses de mayo y junio registran los valores mínimos. Esta estructura estacional es el principal patrón que el modelo deberá capturar.
+Las variables objetivo presentan una marcada estacionalidad con **dos temporadas altas**: el verano austral (enero–febrero), asociado al turismo internacional, y el invierno (julio–agosto), vinculado al turismo de nieve. El valle más profundo ocurre en mayo–junio. Las visitas al Parque Nacional, en cambio, se concentran principalmente en verano. Esta estructura estacional es el principal patrón que los modelos deberán capturar.
 
 ---
 

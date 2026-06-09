@@ -53,15 +53,15 @@ Un aspecto clave del problema es la composición de la demanda. Las pernoctacion
 
 ### 3.1 Objetivo General
 
-Desarrollar y validar un modelo de Aprendizaje Automático que prediga la demanda turística mensual en la Provincia de Tierra del Fuego, utilizando datos históricos de ocupación, variables de conectividad aeroportuaria, registros de cruceros y factores climáticos.
+Desarrollar y validar modelos de Aprendizaje Automático que predigan la demanda turística mensual en la Provincia de Tierra del Fuego sobre **tres variables objetivo** —viajeros totales, pernoctaciones totales y visitas al Parque Nacional Tierra del Fuego—, utilizando datos históricos de ocupación hotelera y factores climáticos. Se entrena un modelo independiente por cada variable objetivo.
 
 ### 3.2 Objetivos Específicos
 
 - **Recolección e Integración:** consolidar una base de datos unificada a partir de registros históricos de turismo, transporte aéreo, marítimo y datos meteorológicos.
 - **Análisis Exploratorio (EDA):** identificar tendencias, ciclos estacionales, correlaciones y outliers en el comportamiento histórico del turismo fueguino.
 - **Ingeniería de Características:** limpiar, normalizar y crear variables derivadas clave (lags temporales, dummies de temporada, etc.).
-- **Entrenamiento de Modelos:** implementar y ajustar distintos algoritmos aptos para capturar relaciones lineales y no lineales.
-- **Evaluación y Comparación:** medir el desempeño con métricas estadísticas rigurosas (MAE, RMSE, R²) para determinar el modelo óptimo.
+- **Entrenamiento de Modelos:** entrenar un modelo de Regresión Lineal Múltiple por cada variable objetivo, con su propio conjunto de features.
+- **Evaluación y Comparación:** medir el desempeño con métricas estadísticas rigurosas (MAE, RMSE, R² y R² por validación cruzada) para evaluar cada modelo.
 
 ---
 
@@ -90,29 +90,31 @@ El Parque Nacional es uno de los principales atractivos de la región. Sus datos
 
 El proyecto se define estrictamente como un problema de **Aprendizaje Supervisado de Regresión**.
 
-La variable objetivo (target) a predecir es una variable cuantitativa continua. Dependiendo de la consistencia y granularidad de las fuentes de datos finales, el foco se pone en una de las siguientes variables (o se plantean dos sub-modelos independientes):
+Las variables objetivo (targets) a predecir son cuantitativas continuas. El proyecto plantea **tres modelos independientes**, uno por cada una de las siguientes variables:
 
-1. Cantidad total de viajeros/turistas ingresados en un período de tiempo.
-2. Pernoctaciones totales (noches que los turistas pasan en los alojamientos), que suele ser un indicador más preciso del impacto económico real.
+1. **Viajeros totales** (`ush_viaj_total`): cantidad total de viajeros/turistas ingresados en el período.
+2. **Pernoctaciones totales** (`ush_pernoc_total`): noches que los turistas pasan en los alojamientos, indicador más preciso del impacto económico real.
+3. **Visitas al Parque Nacional** (`parque_visitas_total`): afluencia mensual al Parque Nacional Tierra del Fuego, principal atractivo natural de la región.
 
 ---
 
 ## 6. Variables del Proyecto (Preliminar)
 
-El dataset se estructura con las siguientes variables independientes (features) para alimentar los modelos predictivos:
+El dataset se estructura con las siguientes variables independientes (features) candidatas para alimentar los modelos predictivos:
 
 | Categoría | Variables Candidatas |
 |---|---|
-| Demanda Histórica | Pernoctaciones previas, cantidad de viajeros del mes anterior (lags) |
-| Capacidad y Ocupación | Tasa de ocupación hotelera por tipo de alojamiento (hoteles, cabañas, etc.) |
-| Conectividad y Transporte | Movimiento de pasajeros en aeropuertos, vuelos comerciales, recaladas de cruceros y flujo marítimo |
-| Clima | Temperatura media mensual, precipitaciones, acumulación de nieve |
-| Temporada y Calendario | Mes del año, estación, fines de semana largos, eventos locales (Marchablanca, Gran Premio) |
+| Temporales | Año (`anio`), mes (`mes.1`) |
+| Capacidad y Ocupación | Tasa de ocupación hotelera (`ush_toh %`), tasa de ocupación de plazas (`ush_top %`), habitaciones y plazas disponibles |
+| Clima | Temperatura media mensual, precipitación acumulada, velocidad máxima del viento |
 
-La variable objetivo (target) a predecir es cuantitativa continua:
+Tras la selección estadística (Correlación + VIF) descrita en la Entrega 2, cada modelo conserva un subconjunto propio de estas 9 variables candidatas.
 
-- Cantidad total de viajeros/turistas ingresados en el período.
-- Pernoctaciones totales (noches en alojamientos) —indicador más preciso del impacto económico real—.
+Las tres variables objetivo (targets) a predecir son cuantitativas continuas:
+
+- **Viajeros totales** (`ush_viaj_total`): total de viajeros/turistas ingresados en el período.
+- **Pernoctaciones totales** (`ush_pernoc_total`): noches en alojamientos, indicador más preciso del impacto económico real.
+- **Visitas al Parque Nacional** (`parque_visitas_total`): afluencia mensual al área protegida.
 
 ---
 
@@ -120,13 +122,12 @@ La variable objetivo (target) a predecir es cuantitativa continua:
 
 ### 7.1 Algoritmos de Aprendizaje Automático
 
-Para resolver este problema de regresión, se evalúa un abanico de modelos que van desde enfoques clásicos interpretables hasta algoritmos basados en ensambles, ideales para capturar patrones no lineales:
+Tras evaluar distintos enfoques, el modelo adoptado es la **Regresión Lineal Múltiple (MCO)**. Se consideraron también modelos no lineales como SVR a modo de comparación, pero el análisis confirmó que la relación entre las features y los targets es predominantemente lineal, por lo que se optó por la Regresión Lineal Múltiple por su buen desempeño y, sobre todo, su **interpretabilidad** (coeficientes que indican el peso de cada variable):
 
 | Modelo | Descripción | Rol |
 |---|---|---|
-| Regresión Lineal (Ridge/Lasso) | Modelo base interpretable | Baseline |
-| Decision Tree Regressor | Captura relaciones no lineales simples | Exploración |
-| SVR (Support Vector Regression) | Modelo robusto para relaciones complejas y no lineales | Candidato final |
+| Regresión Lineal Múltiple (MCO) | Modelo interpretable, coeficientes por mínimos cuadrados | **Modelo final** |
+| SVR (Support Vector Regression) | Modelo robusto para relaciones no lineales | Comparación (descartado: relación lineal confirmada) |
 
 ### 7.2 Métricas de Evaluación
 
@@ -139,7 +140,7 @@ Para resolver este problema de regresión, se evalúa un abanico de modelos que 
 ## 8. Fuentes de Datos
 
 - **IPIEC** (Instituto Provincial de Estadística y Censos): fuente principal para datos de ocupación local, encuestas de turismo hotelero y estadísticas provinciales.
-- **SMN** (Servicio Meteorológico Nacional): histórico de variables climáticas de las estaciones meteorológicas de Ushuaia y Río Grande.
+- **Open-Meteo** (reanálisis ERA5 del ECMWF): histórico de variables climáticas mensuales (temperatura media, precipitación acumulada y velocidad máxima del viento) para las coordenadas de Ushuaia.
 
 ---
 

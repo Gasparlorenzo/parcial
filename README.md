@@ -6,7 +6,7 @@
 
 # 🏔️ Predicción de Demanda Turística — Tierra del Fuego
 
-**Modelo de aprendizaje automático para predecir el total mensual de viajeros que arriban a Ushuaia, Tierra del Fuego (Argentina), utilizando series temporales históricas enriquecidas con variables climáticas y de oferta hotelera.**
+**Modelo de aprendizaje automático para predecir la demanda turística mensual de Ushuaia, Tierra del Fuego (Argentina) —viajeros totales, pernoctaciones y visitas al Parque Nacional—, utilizando series temporales históricas enriquecidas con variables climáticas y de oferta hotelera.**
 
 <br/>
 
@@ -45,7 +45,7 @@ El turismo es uno de los principales motores económicos de Ushuaia y la provinc
 
 Este proyecto construye un **modelo predictivo** capaz de anticipar la demanda turística mensual con un **horizonte de 3 a 6 meses**, apoyando decisiones en hotelería, transporte, gastronomía e infraestructura.
 
-> 🎯 **Objetivo:** estimar `ush_viaj_total` (viajeros totales mensuales) a partir de variables históricas, climáticas y de oferta hotelera.
+> 🎯 **Objetivo:** estimar tres variables objetivo mensuales —`ush_viaj_total` (viajeros totales), `ush_pernoc_total` (pernoctaciones totales) y `parque_visitas_total` (visitas al Parque Nacional Tierra del Fuego)— a partir de variables históricas, climáticas y de oferta hotelera. Se entrena **un modelo de Regresión Lineal Múltiple por cada target**, con su propio conjunto de features seleccionadas (Correlación + VIF).
 
 ---
 
@@ -150,16 +150,19 @@ La serie muestra una **fuerte estacionalidad anual**, con máximos en verano y m
 </div>
 ### Desempeño del modelo
 
-| Modelo | R² (test) | RMSE | MAE |
-|--------|:---------:|:----:|:---:|
-| Regresión Lineal | — | — | — |
+Regresión Lineal Múltiple, un modelo por variable objetivo, evaluado sobre el conjunto de prueba (2023–2025).
 
+| Variable objetivo | R² (test) | R² CV | RMSE | MAE |
+|-------------------|:---------:|:-----:|:----:|:---:|
+| `ush_viaj_total` (Viajeros totales) | **0,828** | 0,874 | 3.480 | 2.669 |
+| `ush_pernoc_total` (Pernoctaciones) | 0,807 | 0,903 | 8.114 | 5.337 |
+| `parque_visitas_total` (Parque Nacional) | 0,452 | 0,241 | 12.308 | 10.239 |
 
-> ℹ️ *Completar con las métricas finales obtenidas sobre el conjunto de prueba (2023–2025).*
+> ℹ️ **Viajeros totales** es el modelo de mejor desempeño (explica ~83% de la variación). **Parque Nacional** es el más débil, condicionado por la menor cantidad de datos disponibles (desde 2015).
 
 <div align="center">
   <img src="docs/img/real_vs_predicho.png" alt="Real vs predicho en el período de test" width="85%"/>
-  <br/><em>Figura 3 — Predicción del modelo frente a los valores reales en el test (2023–2025): viajeros (R² 0,82), pernoctaciones (R² 0,81) y Parque Nacional (R² 0,45).</em>
+  <br/><em>Figura 3 — Predicción del modelo frente a los valores reales en el test (2023–2025): viajeros (R² 0,83), pernoctaciones (R² 0,81) y Parque Nacional (R² 0,45).</em>
 </div>
 
 ---
