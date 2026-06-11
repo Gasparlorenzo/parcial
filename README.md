@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/img/banner.png" alt="Predicción de Demanda Turística - Tierra del Fuego" width="100%"/>
+<img src="reports/banner.png" alt="Predicción de Demanda Turística - Tierra del Fuego" width="100%"/>
 
 <br/>
 
@@ -57,10 +57,11 @@ Este proyecto construye un **modelo predictivo** capaz de anticipar la demanda t
 │   ├── raw/                # Datos originales sin modificar
 │   ├── interim/            # Datos intermedios en procesamiento
 │   └── processed/          # Datos limpios y preprocesados
-├── docs/
-│   └── img/                # Imágenes y gráficos del proyecto
+├── docs/                   # Informes del proyecto.
 ├── models/                 # Modelos entrenados (.pkl, .h5, .joblib)
-├── notebooks/              # Jupyter Notebooks de exploración y análisis (EDA)
+├── notebooks/		    # Jupyter Notebooks de exploración y análisis (EDA)
+├── reports		    # Imágenes y gráficos del proyecto.
+├── video             	    # Video Presentación del proyecto
 ├── src/                    # Código fuente (entrenamiento y predicción)
 ├── requirements.txt        # Dependencias del proyecto
 └── README.md
@@ -137,7 +138,7 @@ python src/modelo.py
 La serie muestra una **fuerte estacionalidad anual**, con máximos en verano y mínimos en invierno.
 
 <div align="center">
-  <img src="docs/img/evolucion_historica_demanda_2004_2025.png" alt="Evolución histórica de la demanda turística en Ushuaia, 2004-2025" width="90%"/>
+  <img src="reports/evolucion_historica_demanda_2004_2025.png" alt="Evolución histórica de la demanda turística en Ushuaia, 2004-2025" width="90%"/>
   <br/>
   <em>Figura 1 — Evolución mensual de viajeros, pernoctaciones y visitas al Parque Nacional (2004–2025). El período COVID-19 (mar 2020 – jun 2021) se destaca en rojo.</em>
 </div>
@@ -145,7 +146,7 @@ La serie muestra una **fuerte estacionalidad anual**, con máximos en verano y m
 <br/>
 
 <div align="center">
-  <img src="docs/img/matriz_correlacion.png" alt="Matriz de correlación entre features y targets" width="75%"/>
+  <img src="reports/matriz_correlacion.png" alt="Matriz de correlación entre features y targets" width="75%"/>
   <br/><em>Figura 2 — Matriz de correlación entre predictores y las tres variables objetivo.</em>
 </div>
 ### Desempeño del modelo
@@ -161,7 +162,7 @@ Regresión Lineal Múltiple, un modelo por variable objetivo, evaluado sobre el 
 > ℹ️ **Viajeros totales** es el modelo de mejor desempeño (explica ~83% de la variación). **Parque Nacional** es el más débil, condicionado por la menor cantidad de datos disponibles (desde 2015).
 
 <div align="center">
-  <img src="docs/img/real_vs_predicho.png" alt="Real vs predicho en el período de test" width="85%"/>
+  <img src="reports/real_vs_predicho.png" alt="Real vs predicho en el período de test" width="85%"/>
   <br/><em>Figura 3 — Predicción del modelo frente a los valores reales en el test (2023–2025): viajeros (R² 0,83), pernoctaciones (R² 0,81) y Parque Nacional (R² 0,45).</em>
 </div>
 
