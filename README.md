@@ -15,7 +15,7 @@
 ![pandas](https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
 ![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
 
-![Status](https://img.shields.io/badge/estado-en%20desarrollo-yellow?style=flat-square)
+![Status](https://img.shields.io/badge/estado-completado-success?style=flat-square)
 ![License](https://img.shields.io/badge/licencia-MIT-blue?style=flat-square)
 ![Made with](https://img.shields.io/badge/hecho%20en-Tierra%20del%20Fuego-e98a4b?style=flat-square)
 
@@ -54,16 +54,18 @@ Este proyecto construye un **modelo predictivo** capaz de anticipar la demanda t
 ```
 .
 ├── data/
-│   ├── raw/                # Datos originales sin modificar
+│   ├── raw/                # Datos originales del IPIEC (sin modificar)
 │   ├── interim/            # Datos intermedios en procesamiento
 │   └── processed/          # Datos limpios y preprocesados
-├── docs/                   # Informes del proyecto.
-├── models/                 # Modelos entrenados (.pkl, .h5, .joblib)
-├── notebooks/		    # Jupyter Notebooks de exploración y análisis (EDA)
-├── reports		    # Imágenes y gráficos del proyecto.
-├── video             	    # Video Presentación del proyecto
-├── src/                    # Código fuente (entrenamiento y predicción)
-├── requirements.txt        # Dependencias del proyecto
+├── docs/                   # Informes del proyecto (objetivos, dataset, informe final)
+├── notebooks/
+│   ├── 00_descarga_clima_openmeteo.ipynb   # Descarga de clima (ERA5)
+│   └── 01_prediccion_demanda_turistica_v2.ipynb  # EDA + modelado
+├── reports/                # Imágenes y gráficos del proyecto
+├── video/                  # Video presentación del proyecto
+├── environment.yml         # Entorno conda
+├── requirements.txt        # Dependencias pip
+├── pyproject.toml          # Metadata del proyecto
 └── README.md
 ```
 
@@ -112,9 +114,15 @@ wind_speed_10m_max, ush_toh_pct, ush_top_pct, ush_plazas_disponibles
 **Instalación**
 
 ```bash
-git clone https://github.com/tuusuario/turismo-tdf-ml
-cd turismo-tdf-ml
+git clone https://github.com/Gasparlorenzo/Prediccion-Demanda-Turistica-TDF2026.git
+cd Prediccion-Demanda-Turistica-TDF2026
+
+# Opción A: con pip
 pip install -r requirements.txt
+
+# Opción B: con conda
+conda env create -f environment.yml
+conda activate parcial
 ```
 
 ---
@@ -122,11 +130,11 @@ pip install -r requirements.txt
 ## 🚀 Uso
 
 ```bash
-# Análisis exploratorio
-jupyter notebook notebooks/exploracion.ipynb
+# 1. Descarga de datos climáticos (Open-Meteo / ERA5)
+jupyter notebook notebooks/00_descarga_clima_openmeteo.ipynb
 
-# Entrenamiento del modelo
-python src/modelo.py
+# 2. Análisis exploratorio, selección de features y modelado
+jupyter notebook notebooks/01_prediccion_demanda_turistica_v2.ipynb
 ```
 
 ---
@@ -188,7 +196,12 @@ Regresión Lineal Múltiple, un modelo por variable objetivo, evaluado sobre el 
 
 ## ✍️ Autoría
 
-Proyecto desarrollado para la materia **Aprendizaje Automático** — Politecnico Malvinas Argentinas, 2026.
+**Darío Martínez**
+Estudiante de la Tecnicatura Superior en Ciencias de Datos e Inteligencia Artificial — UNTDF / Politécnico Malvinas Argentinas.
+
+Proyecto desarrollado para la materia **Aprendizaje Automático** — 2026.
+
+[![GitHub](https://img.shields.io/badge/GitHub-Gasparlorenzo-181717?style=flat-square&logo=github)](https://github.com/Gasparlorenzo)
 
 <div align="center">
 <br/>
