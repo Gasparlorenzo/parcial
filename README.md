@@ -197,7 +197,7 @@ Regresión Lineal Múltiple, un modelo por variable objetivo, evaluado sobre el 
 ## ✍️ Autoría
 
 **Darío Martínez**
-Estudiante de la Tecnicatura Superior en Ciencias de Datos e Inteligencia Artificial — UNTDF / Politécnico Malvinas Argentinas.
+Estudiante de la Tecnicatura Superior en Ciencias de Datos e Inteligencia Artificial — Centro Politécnico Superior Malvinas Argentinas.
 
 Proyecto desarrollado para la materia **Aprendizaje Automático** — 2026.
 
