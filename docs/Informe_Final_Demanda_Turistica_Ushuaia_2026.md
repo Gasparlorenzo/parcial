@@ -39,7 +39,7 @@ El uso de técnicas de Aprendizaje Automático permite procesar datos histórico
 
 ### Objetivo general
 
-Desarrollar y validar modelos de Aprendizaje Automático que predigan la demanda turística mensual de Ushuaia, con un horizonte de planificación de 3 a 6 meses, sobre tres variables objetivo.
+Desarrollar y validar modelos de Aprendizaje Automático que predigan la demanda turística mensual de Ushuaia, con un horizonte de planificación de 6 a 12 meses, sobre tres variables objetivo.
 
 ### Objetivos específicos
 
@@ -286,7 +286,7 @@ Organismos como el IPIEC o la Secretaría de Turismo podrían utilizar este tipo
 - Descarga de clima: `00_descarga_clima_openmeteo.ipynb`
 - Dataset integrado: `data/processed/dataset_turismo_clima.xlsx`
 - Gráficos completos: carpeta `reports/`
-- Repositorio: https://github.com/Gasparlorenzo/parcial
+- Repositorio: https://github.com/Gasparlorenzo/Prediccion-Demanda-Turistica-TDF2026
 
 **Referencias:**
 
