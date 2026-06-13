@@ -113,7 +113,7 @@ Conclusiones del EDA:
 
 ## 5 · Metodología
 
-Esta sección describe **qué hace cada parte del código y por qué**, más que el detalle línea por línea.
+Esta sección describe **qué hace cada parte del código y por qué**.
 
 ### 5.1 Preprocesamiento
 
